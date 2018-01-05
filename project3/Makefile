@@ -1,18 +1,12 @@
-#
-# Makefile for TINY
-# Gnu C Version
-# K. Louden 2/3/98
-#
+CC=gcc
 
-CC = gcc
+CFLAGS=-g 
 
-CFLAGS = -g 
+OBJDIR=obj
 
-OBJDIR = obj
+OBJS_FLEX=$(addprefix $(OBJDIR)/, y.tab.o main.o util.o lex.yy.o symtab.o analyze.o)
 
-OBJS_FLEX = $(addprefix $(OBJDIR)/, y.tab.o main.o util.o lex.yy.o symtab.o analyze.o)
-
-FILENAME = cminus_semantic
+FILENAME=cminus_semantic
 
 all: dummy $(OBJDIR) $(FILENAME)
 

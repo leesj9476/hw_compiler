@@ -1,21 +1,17 @@
-#
-# Makefile for TINY
-# Gnu C Version
-# K. Louden 2/3/98
-#
+CC=gcc
 
-CC = gcc
+CFLAGS=-g
 
-CFLAGS = 
+OBJDIR=obj
 
-OBJDIR = obj
+OBJS=$(addprefix $(OBJDIR)/, main.o util.o scan.o)
 
-OBJS = $(addprefix $(OBJDIR)/, main.o util.o scan.o)
+FILENAME=cminus
 
-all: $(OBJDIR) cminus
+all: dummy $(OBJDIR) $(FILENAME)
 
-cminus: $(OBJS)
-	$(CC) $(CFLAGS) $^ -o cminus
+$(FILENAME): $(OBJDIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(FILENAME)
 
 $(OBJDIR)/main.o: main.c globals.h util.h scan.h
 	$(CC) $(CFLAGS) -c main.c -o $(OBJDIR)/main.o
@@ -30,7 +26,7 @@ $(OBJDIR):
 	mkdir $(OBJDIR)
 
 clean:
-	-rm cminus
-	-rm $(OBJS)
-	-rm -r $(OBJDIR)
+	-rm -f cminus
+	-rm -f $(OBJS)
+	-rm -rf $(OBJDIR)
 

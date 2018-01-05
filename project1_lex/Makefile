@@ -1,21 +1,17 @@
-#
-# Makefile for TINY
-# Gnu C Version
-# K. Louden 2/3/98
-#
+CC=gcc
 
-CC = gcc
+CFLAGS=-g
 
-CFLAGS = 
+OBJDIR=obj
 
-OBJDIR = obj
+OBJS_FLEX=$(addprefix $(OBJDIR)/, main.o util.o lex.yy.o)
 
-OBJS_FLEX = $(addprefix $(OBJDIR)/, main.o util.o lex.yy.o)
+FILENAME=cminus_flex
 
-all: $(OBJDIR) cminus_flex
+all: dummy $(OBJDIR) $(FILENAME)
 
-cminus_flex: $(OBJS_FLEX)
-	$(CC) $(CFLAGS) $^ -o cminus_flex -lfl
+$(FILENAME): $(OBJDIR) $(OBJS_FLEX)
+	$(CC) $(CFLAGS) $(OBJS_FLEX) -o $(FILENAME) -lfl
 
 $(OBJDIR)/main.o: main.c globals.h util.h scan.h
 	$(CC) $(CFLAGS) -c main.c -o $(OBJDIR)/main.o
@@ -28,11 +24,12 @@ $(OBJDIR)/lex.yy.o: cminus.l util.h globals.h scan.h
 	$(CC) $(CFLAGS) -c lex.yy.c -o $(OBJDIR)/lex.yy.o -lfl
 
 $(OBJDIR):
-	mkdir $@
+	mkdir $(OBJDIR)
+
+dummy:
+	make clean
 
 clean:
-	-rm cminus_flex
-	-rm $(OBJS_FLEX) lex.yy.c
-	-rm -r $(OBJDIR)
-
-
+	-rm -f $(FILENAME)
+	-rm -f $(OBJS_FLEX) lex.yy.c
+	-rm -rf $(OBJDIR)

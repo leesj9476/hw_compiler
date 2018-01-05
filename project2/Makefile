@@ -1,9 +1,3 @@
-#
-# Makefile for TINY
-# Gnu C Version
-# K. Louden 2/3/98
-#
-
 CC = gcc
 
 CFLAGS = -g 
@@ -43,5 +37,3 @@ clean:
 	-rm -f $(FILENAME)
 	-rm -f $(OBJS_FLEX) lex.yy.c y.tab.*
 	-rm -rf $(OBJDIR)
-
-
